@@ -10,7 +10,7 @@ const Heading = dynamic(() => import("../components/Heading"));
 
 const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'], // Tous les poids disponibles
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   variable: "--font-montserrat",
 });
 
@@ -27,13 +27,11 @@ export default function RootLayout({ children }) {
           <Logo />
           <Heading level="1" className="text-white ml-4">JapLearn</Heading>
         </div>
-        
         <main className="bg-blue-800 rounded-2xl w-full flex-1 overflow-hidden">
           <div className="h-full overflow-y-auto p-5">
             {children}
           </div>
         </main>
-
         <Header />
       </body>
     </html>
