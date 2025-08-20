@@ -1,26 +1,40 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-default: var(--font-montserrat);
+  /* COLOR PALETTE */
+  --color-red-800: #813737;
+  --color-red-700: #943939;
+  --color-red-600: #CE4F4F;
+  --color-red-500: #DF6060;
+  --color-red-400: #EC6F6F;
+
+  --color-white: #FFFFFF;
+  --color-cream: #F3F7F0;
+
+  --color-blue-900: #0D111A;
+  --color-blue-800: #19202C;
+  --color-blue-700: #19323C;
+  --color-blue-600: #335562;
+
+  --color-black-text: #090909;
+
+  /* Mode clair par défaut */
+  --background: var(--color-blue-900);
+  --foreground: var(--color-black-text);
+  --primary: var(--color-blue-800);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Mode sombre */
+.dark {
+  --background: var(--color-blue-900);
+  --foreground: var(--color-white);
+  --primary: var(--color-red-400);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Styles de base */
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-montserrat);
 }

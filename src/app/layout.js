@@ -1,14 +1,17 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import PropTypes from 'prop-types';
+import { Montserrat } from "next/font/google";
 import "./globals.css";
+import dynamic from 'next/dynamic';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const Header = dynamic(() => import("../components/Header"));
+const Logo = dynamic(() => import("../components/Logo"));
+const Heading = dynamic(() => import("../components/Heading"));
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+
+const montserrat = Montserrat({
   subsets: ["latin"],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'], // Tous les poids disponibles
+  variable: "--font-montserrat",
 });
 
 export const metadata = {
@@ -18,11 +21,20 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="fr" className={`${montserrat.variable} h-full`}>
+      <body className="h-full w-full px-5 flex flex-col gap-4 overflow-hidden">
+        <div className='flex items-center justify-center mt-15 mb-7.5'>
+          <Logo />
+          <Heading level="1" className="text-white ml-4">JapLearn</Heading>
+        </div>
+        
+        <main className="bg-blue-800 rounded-2xl w-full flex-1 overflow-hidden">
+          <div className="h-full overflow-y-auto p-5">
+            {children}
+          </div>
+        </main>
+
+        <Header />
       </body>
     </html>
   );
