@@ -1,0 +1,37 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Kanji {
+  id          Int      @id @default(autoincrement())
+  character   String
+  meaningFr   String[]
+  meaningEn   String[]
+  onyomi      String[]
+  kunyomi     String[]
+  jlpt        Int?
+  strokeCount Int?
+  grade       Int?
+  heisigEn    String?
+  unicode     String?
+  radical     String?
+  parts       String[]
+  strokeOrder String[]
+  nameReadings String[]
+  codes       String[]
+  words       Word[]   @relation("KanjiWords")
+}
+
+model Word {
+  id         Int      @id @default(autoincrement())
+  word       String
+  reading    String
+  meaningEn  String[]
+  meaningFr  String[]
+  kanjis     Kanji[]  @relation("KanjiWords")
+}
