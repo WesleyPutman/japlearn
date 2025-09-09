@@ -1,37 +1,83 @@
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
 }
 
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Table principale : mot
+model Word {
+  id          Int       @id @default(autoincrement())
+  entryId     String    @unique
+  common      Boolean   @default(false)
+  frequency   Int       @default(999999)  // Nouveau champ: plus petit = plus fréquent
+  kanjis      WordKanji[]
+  kanas       WordKana[]
+  senses      Sense[]
+  // Relation avec les kanji individuels (ajouté)
+  kanjiChars  Kanji[]   @relation("KanjiWords")
+
+  searchVector Unsupported("tsvector")?
+}
+
+/// Liste des kanji associés au mot
+model WordKanji {
+  id     Int    @id @default(autoincrement())
+  text   String
+  word   Word   @relation(fields: [wordId], references: [id])
+  wordId Int
+}
+
+/// Liste des kana associés au mot
+model WordKana {
+  id     Int    @id @default(autoincrement())
+  text   String
+  word   Word   @relation(fields: [wordId], references: [id])
+  wordId Int
+}
+
+/// Sens du mot (ex: "to eat", "manger")
+model Sense {
+  id       Int     @id @default(autoincrement())
+  word     Word    @relation(fields: [wordId], references: [id])
+  wordId   Int
+  glosses  Gloss[]
+}
+
+/// Traductions (anglais, français, etc.)
+model Gloss {
+  id       Int    @id @default(autoincrement())
+  lang     String
+  text     String
+  sense    Sense  @relation(fields: [senseId], references: [id])
+  senseId  Int
+}
+
+/// Kanji individuels (caractères)
 model Kanji {
   id          Int      @id @default(autoincrement())
-  character   String
-  meaningFr   String[]
+  character   String   @unique
   meaningEn   String[]
+  meaningFr   String[]
   onyomi      String[]
   kunyomi     String[]
   jlpt        Int?
   strokeCount Int?
-  grade       Int?
-  heisigEn    String?
+  grade       Int?     // Niveau scolaire japonais (1-6 primaire, 8 secondaire)
+  heisigEn    String?  // Indice mnémonique style Heisig (anglais)
   unicode     String?
   radical     String?
   parts       String[]
-  strokeOrder String[]
+  strokeOrder String?
   nameReadings String[]
-  codes       String[]
-  words       Word[]   @relation("KanjiWords")
-}
+  codes       Json?    // Codes supplémentaires (SKIP, quatre coins, etc.)
+  frequency   Int      @default(999999)  // Nouveau champ: plus petit = plus fréquent
 
-model Word {
-  id         Int      @id @default(autoincrement())
-  word       String
-  reading    String
-  meaningEn  String[]
-  meaningFr  String[]
-  kanjis     Kanji[]  @relation("KanjiWords")
+  // Relation avec les mots
+  words       Word[]   @relation("KanjiWords")
 }

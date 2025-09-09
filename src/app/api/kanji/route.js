@@ -1,25 +1,39 @@
 import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
 
-// GET /api/kanji
-export async function GET() {
+export async function GET(request) {
   try {
-    const kanji = await prisma.kanji.findMany()
-    return NextResponse.json(kanji)
+    const { searchParams } = new URL(request.url)
+    const page = parseInt(searchParams.get("page") || "1", 10)
+    const q = searchParams.get("q")?.trim() || ""
+
+    const where = q
+      ? {
+          OR: [
+            { character: { contains: q } },
+            { meaningEn: { has: q } },
+            { meaningFr: { has: q } },
+          ],
+        }
+      : {}
+
+    const [kanji, total] = await Promise.all([
+      prisma.kanji.findMany({
+        where,
+        skip: (page - 1) * 20,
+        take: 20,
+        orderBy: [
+          { frequency: 'asc' }, // Tri par fréquence
+          { grade: 'asc' },     // Puis par niveau scolaire
+          { character: 'asc' }  // Puis alphabétique
+        ],
+      }),
+      prisma.kanji.count({ where }),
+    ])
+
+    return NextResponse.json({ kanji, total })
   } catch (error) {
     console.error(error)
     return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 })
-  }
-}
-
-// POST /api/kanji
-export async function POST(request) {
-  try {
-    const data = await request.json()
-    const newKanji = await prisma.kanji.create({ data })
-    return NextResponse.json(newKanji, { status: 201 })
-  } catch (error) {
-    console.error(error)
-    return NextResponse.json({ error: 'Erreur lors de la création' }, { status: 500 })
   }
 }
