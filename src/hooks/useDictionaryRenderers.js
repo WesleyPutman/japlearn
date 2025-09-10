@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function useDictionaryRenderers() {
   function truncateText(text, maxWords = 2) {
     if (!text) return '';
@@ -9,13 +11,11 @@ export default function useDictionaryRenderers() {
   // Fonction pour rendre un élément kanji
   const renderKanjiItem = (k) => (
     <li key={`kanji-${k.id}`} className="p-5 rounded-2xl border-blue-900 border-4 flex items-center h-[133px] mb-3 w-full">
+      <Link href={`/kanji/${k.character}`}>
       <span className="text-5xl mr-4">{k.character}</span>
-      <div>
-        <div className="text-sm">
-          {k.grade && `Grade ${k.grade}`} 
-          {k.jlpt && ` • JLPT N${k.jlpt}`}
-          {k.strokeCount && ` • ${k.strokeCount} traits`}
-        </div>
+      </Link>
+      <div className="flex flex-col justify-end">
+        <span className="px-1 text-xs bg-red-500 rounded w-[80px] text-center">grade {k.grade}</span>
         <div>{truncateText((k.meaningEn || []).join(", "))}</div>
         <div className="text-sm">
           {k.onyomi?.length > 0 && <>On: {k.onyomi.join(", ")}</>}
@@ -43,11 +43,11 @@ export default function useDictionaryRenderers() {
     return (
       <li key={`word-${w.id}`} className="p-5 rounded-2xl border-blue-900 border-4 flex flex-col h-auto mb-3 w-full">
         <div className="flex items-center">
-          <span className="text-3xl mr-4">{mainKanji}</span>
+          <Link href={`/word/${encodeURIComponent(mainKanji)}`}><span className="text-3xl mr-4">{mainKanji}</span></Link>
           <span className="text-lg">
             {w.mainKanaText || w.kanas?.map(k => k.text).join(", ") || ""}
           </span>
-          {w.common && <span className="ml-2 px-1 text-xs bg-red-500 text-green-800 rounded">commun</span>}
+          {w.common && <span className="ml-2 px-1 text-xs bg-red-500 rounded">commun</span>}
         </div>
         
         {/* Affichage des formes alternatives si présentes */}

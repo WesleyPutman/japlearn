@@ -28,8 +28,10 @@ export default function RootLayout({ children }) {
           <Heading level="1" className="text-white ml-4">JapLearn</Heading>
         </div>
         <main className="bg-blue-800 rounded-2xl w-full flex-1 overflow-hidden">
-          <div className="h-full overflow-y-auto p-5">
-            {children}
+          <div className="h-full overflow-y-auto p-5 flex flex-col items-center justify-start">
+            <div className="w-full max-w-3xl flex flex-col items-center">
+              {children}
+            </div>
           </div>
         </main>
         <Header />
