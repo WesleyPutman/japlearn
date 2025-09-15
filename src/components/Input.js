@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from "react";
 
 export default function Input({ type = "text", value, onChange, placeholder = "", className = "", data = [], showSuggestions = false, onSelectSuggestion, ...props
