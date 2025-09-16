@@ -65,7 +65,6 @@ export default function useHanziWrite(character, options = {}) {
             writerRef.current = writer;
             setIsLoading(false);
 
-            // Démarrer la démo après un court délai
             setTimeout(() => {
                 if (writerRef.current) {
                     startDemo();
@@ -82,7 +81,7 @@ export default function useHanziWrite(character, options = {}) {
                 writerRef.current = null;
             }
         }
-    }, [character]); // Dépendre uniquement du caractère, pas des options
+    }, [character]);
 
     const handlePractice = () => {
         autoPlayRef.current = false;

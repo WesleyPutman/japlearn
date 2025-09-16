@@ -1,12 +1,14 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getKanjiByCharacter } from "@/lib/services/kanji";
 import dynamic from "next/dynamic";
-import Button from "@/components/Button";
+import { getKanjiByCharacter } from "@/lib/services/kanji";
+import { useHanziWrite } from "@/hooks/useHanziWrite";
 
 const Heading = dynamic(() => import('@/components/Heading'));
 const SearchInput = dynamic(() => import('@/components/SearchInput'));
 const Separator = dynamic(() => import('@/components/Separator'));
+const Button = dynamic(() => import('@/components/Button'));
+const KanjiDemo = dynamic(() => import('@/components/KanjiDemo'));
 
 export default async function KanjiPage({ params }) {
   const kanjiChar = decodeURIComponent(params.slug);
@@ -102,6 +104,10 @@ export default async function KanjiPage({ params }) {
             )}
           </div>
         )}
+        <div>
+          <Heading level="2" className="mb-4 mt-8">Démonstration du tracé</Heading>
+          <KanjiDemo character={kanji.character} />
+        </div>
       </div>
       <Button href={`/kanji/${encodeURIComponent(kanji.character)}/practice`} className="mt-6" block>S'entrainer</Button>
     </div>
