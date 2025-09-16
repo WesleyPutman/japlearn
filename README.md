@@ -1,3 +1,49 @@
+# Japanese Dictionary App
+
+An interactive Japanese dictionary built with **Next.js** and **Prisma**, designed to provide a clean, modern experience for learners of the Japanese language.
+
+This project aims to combine accurate lexical data, intuitive navigation, and interactive learning features (like kanji stroke order practice) to help users improve their reading and writing skills.
+
+---
+
+## 🚀 Features
+
+- **Dynamic Word and Kanji Pages**
+  - `/word/[slug]`: Display words, their kanji components, kana readings, and multilingual definitions.
+  - `/kanji/[slug]`: Display individual kanji with readings, meanings, and related words.
+
+- **Interactive Kanji Practice**
+  - `/kanji/[slug]/practice`: Practice writing kanji strokes with real-time feedback.
+  - Powered by [Hanzi Writer](https://chanind.github.io/hanzi-writer/), which checks stroke order, direction, and accuracy — similar to how apps like :contentReference[oaicite:1]{index=1} handle writing exercises.
+
+- **Modular Architecture**
+  - `hooks/`: Custom React hooks for data fetching and logic separation.
+  - `api/`: Centralized data access layer to keep database calls out of page components.
+  - `lib/prisma`: Prisma client for database interaction.
+
+- **Multilingual Definitions**
+  - Each word includes glosses in English and French, with easy switching and clear UI.
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
