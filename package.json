@@ -12,6 +12,7 @@
   "dependencies": {
     "@prisma/client": "^6.15.0",
     "csv-parse": "^6.1.0",
+    "hanzi-writer": "^3.7.2",
     "next": "15.4.7",
     "prisma": "^6.15.0",
     "react": "19.1.0",

@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getKanjiByCharacter } from "@/lib/services/kanji";
 import dynamic from "next/dynamic";
+import Button from "@/components/Button";
 
 const Heading = dynamic(() => import('@/components/Heading'));
 const SearchInput = dynamic(() => import('@/components/SearchInput'));
@@ -102,6 +103,7 @@ export default async function KanjiPage({ params }) {
           </div>
         )}
       </div>
+      <Button href={`/kanji/${encodeURIComponent(kanji.character)}/practice`} className="mt-6" block>S'entrainer</Button>
     </div>
   );
 }
