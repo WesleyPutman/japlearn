@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Button({children, onClick, disabled = false, className="",variant="default",href,isActive = false,...props
+export default function Button({children, onClick, disabled = false, className="",variant="default",href,isActive = false,block = false, ...props
 }){
     const baseButtonStyle = "w-min rounded-2xl transition text-[16px] font-bold";
     

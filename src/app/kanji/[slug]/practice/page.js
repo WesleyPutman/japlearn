@@ -5,6 +5,7 @@ import useHanziWrite from "@/hooks/useHanziWrite";
 
 const Button = dynamic(() => import('@/components/Button'));
 const Heading = dynamic(() => import('@/components/Heading'));
+const Separator = dynamic(() => import('@/components/Separator'));
 
 export default function PracticePage({params}) {
    

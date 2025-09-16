@@ -1,6 +1,5 @@
 "use client"
 
-import { useEffect } from "react";
 import useHanziWrite from "@/hooks/useHanziWrite";
 
 export default function KanjiDemo({ character }) {
