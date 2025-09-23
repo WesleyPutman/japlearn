@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 const Heading = dynamic(() => import('@/components/Heading'));
 const SearchInput = dynamic(() => import('@/components/SearchInput'));
 const Separator = dynamic(() => import('@/components/Separator'));
+const QuizButton = dynamic(() => import('@/components/QuizButton'));
 
 export default async function WordPage({ params }) {
   const word = await getWordBySlug(decodeURIComponent(params.slug));
@@ -24,12 +25,10 @@ export default async function WordPage({ params }) {
   return (
     <div className="p-6 flex flex-col items-center">
       <div className="w-full max-w-[600px]">
-        {/* SearchInput prendra toute la largeur disponible */}
         <SearchInput />
         
-        {/* Separator centré avec un padding vertical */}
         <div className="flex justify-center py-4">
-          <Separator className="w-24" /> {/* Adapter la largeur selon tes besoins */}
+          <Separator className="w-24" />
         </div>
       </div>
       
@@ -81,6 +80,11 @@ export default async function WordPage({ params }) {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Nouvelle section pour les boutons */}
+        <div className="mt-8 flex justify-center">
+          <QuizButton slug={mainKanji} type="word" />
         </div>
       </div>
     </div>

@@ -8,6 +8,7 @@ const SearchInput = dynamic(() => import('@/components/SearchInput'));
 const Separator = dynamic(() => import('@/components/Separator'));
 const Button = dynamic(() => import('@/components/Button'));
 const KanjiDemo = dynamic(() => import('@/components/KanjiDemo'));
+const QuizButton = dynamic(() => import('@/components/QuizButton'));
 
 export default async function KanjiPage({ params }) {
   const kanjiChar = decodeURIComponent(params.slug);
@@ -104,12 +105,13 @@ export default async function KanjiPage({ params }) {
               <div className="lg:w-1/4 flex flex-col">
                 <Heading level="2" underline className="mb-4">Démonstration du tracé</Heading>
                 <KanjiDemo character={kanji.character} />
-              <Button href={`/kanji/${encodeURIComponent(kanji.character)}/practice`} className="mt-6" block>S'entrainer</Button>
+                <Button href={`/kanji/${encodeURIComponent(kanji.character)}/practice`} className="mt-6" block>S'entrainer</Button>
+                <QuizButton slug={kanji.character} type="kanji" className="mt-3 block" />
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
-  </div>
   );
 }
